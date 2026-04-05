@@ -36,6 +36,6 @@ export async function generateCommitMessage(repoName: string, diff: string) {
   } catch (e) {
     console.log(e);
 
-    return `chore(${repoName}): auto commit`;
+    throw new Error("Some error occurred");
   }
 }
