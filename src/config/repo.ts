@@ -10,7 +10,7 @@ export const repos = [
     ignore: ["node_modules", ".env"],
   },
   {
-    path: "/c/Users/aelsh/projects/wager-ai",
+    path: "C:/Users/aelsh/projects/wager-ai",
     branchStrategy: "daily",
     ignore: ["node_modules", ".env"],
   },
