@@ -37,6 +37,7 @@ export async function run() {
     if (message.error) {
       message = await generateCommitMessage(repoName, diff);
       if (message.error) {
+        git.reset();
         throw new Error("No messages generated");
       }
     }
