@@ -4,4 +4,14 @@ export const repos = [
     branchStrategy: "daily",
     ignore: ["node_modules", ".env"],
   },
+  {
+    path: "C:/Users/aelsh/OneDrive/Desktop/auto-git",
+    branchStrategy: "daily",
+    ignore: ["node_modules", ".env"],
+  },
+  {
+    path: "C:/Users/aelsh/projects/wager-ai",
+    branchStrategy: "daily",
+    ignore: ["node_modules", ".env"],
+  },
 ];

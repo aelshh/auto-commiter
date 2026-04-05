@@ -8,6 +8,8 @@ import { connect } from "http2";
 
 export async function run() {
   for (const repo of repos) {
+    console.log(`Working on repo: ${repo.path}`);
+
     const git = simpleGit(repo.path);
     const repoName = path.basename(repo.path);
 
@@ -24,20 +26,25 @@ export async function run() {
 
     const diff = await git.diff();
     if (!diff.trim()) {
-      console.log("No actual diff after staging, skipping...");
+      console.log(
+        `No actual diff after staging in repo: ${repo.path}, skipping...`,
+      );
       continue;
     }
     await git.add("./");
 
-    const message = await generateCommitMessage(repoName, diff);
-
-    if (!message) {
-      throw new Error("No messages generated");
+    let message = await generateCommitMessage(repoName, diff);
+    if (message.error) {
+      message = await generateCommitMessage(repoName, diff);
+      if (message.error) {
+        git.reset();
+        throw new Error("No messages generated");
+      }
     }
 
-    console.log(message);
+    console.log(`message for ${repo.path}: ${message}`);
 
     await commitAll(git, message);
-    console.log("Commited");
+    console.log(`Commited for ${repo.path}`);
   }
 }

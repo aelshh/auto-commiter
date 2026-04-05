@@ -1,4 +1,5 @@
 import axios from "axios";
+import { error } from "console";
 import { configDotenv } from "dotenv";
 import { DiffResult } from "simple-git";
 
@@ -35,7 +36,8 @@ export async function generateCommitMessage(repoName: string, diff: string) {
     return result;
   } catch (e) {
     console.log(e);
-
-    return `chore(${repoName}): auto commit`;
+    return {
+      error: e,
+    };
   }
 }
