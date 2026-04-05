@@ -29,10 +29,12 @@ export async function run() {
     }
     await git.add("./");
 
-    const message = await generateCommitMessage(repoName, diff);
-
-    if (!message) {
-      throw new Error("No messages generated");
+    let message = await generateCommitMessage(repoName, diff);
+    if (message.error) {
+      message = await generateCommitMessage(repoName, diff);
+      if (message.error) {
+        throw new Error("No messages generated");
+      }
     }
 
     console.log(message);
